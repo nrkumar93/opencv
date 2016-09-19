@@ -535,10 +535,10 @@ inline CvMat::CvMat(const cv::Mat& m)
 
 
 #define CV_MAT_ELEM_PTR_FAST( mat, row, col, pix_size )  \
-    (assert( (unsigned)(row) < (unsigned)(mat).rows &&   \
-             (unsigned)(col) < (unsigned)(mat).cols ),   \
-     (mat).data.ptr + (size_t)(mat).step*(row) + (pix_size)*(col))
-
+	(assert( (unsigned)(row) < (unsigned)(mat).rows &&   \
+             (unsigned)(col) < (unsigned)(mat).cols*((mat).step/(mat).cols)),   \
+	(mat).data.ptr + (size_t)(mat).step*(row) + (pix_size)*(col))
+	
 #define CV_MAT_ELEM_PTR( mat, row, col )                 \
     CV_MAT_ELEM_PTR_FAST( mat, row, col, CV_ELEM_SIZE((mat).type) )
 
